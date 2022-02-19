@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+*, *::before, *::after {
+    font-family: 'Raleway', sans-serif;
+}
+.global-wrapper {
+    padding: 0 142px;
+}
