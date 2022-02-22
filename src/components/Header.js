@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { NavLink, BrowserRouter as Router } from "react-router-dom"
+import { useDispatch } from 'react-redux'
 import { Query } from 'react-apollo'
 import { GET_CATEGORIES } from '../api'
 import './Header.css'
 import logo from "../util/a-logo.svg"
 import cart from "../util/cart.svg"
 import arrow from "../util/dropdown-arrow.svg"
+
 
 export class Header extends Component {
   render() {
@@ -16,10 +18,11 @@ export class Header extends Component {
             ({ data, loading, error }) => {
               if (loading) return <div>Loading...</div>
               if (error) return <div>Error: {error}</div>
+              console.log(data.categories)
               return (
                 <>
                   <ul className='header-left'>
-                    {data.categories.map(item => <NavLink to={item.name} className="header-navlink" key={item.name}><ol key={item.name} className='header-category'>{item.name.toUpperCase()}</ol></NavLink>)}
+                    {data.categories.map(item => <NavLink onClick={()=> this.props.dispatch({ type: item.name })} to={item.name} className="header-navlink" key={item.name}><ol key={item.name} className='header-category'>{item.name.toUpperCase()}</ol></NavLink>)}
                   </ul>
                   <div className='header-middle'>
                     <img className="header-logo" src={logo}></img>
@@ -32,6 +35,7 @@ export class Header extends Component {
                       <img className="header-cart" src={cart}></img>
                     </NavLink>
                   </div>
+                 
                 </>
               )
             }
@@ -42,4 +46,14 @@ export class Header extends Component {
   }
 }
 
-export default Header
+const withHook = (Header) =>  {
+  return function WrappedComponent(props) {
+      const dispatch = useDispatch({type:"clothes"});
+      return (
+      <>
+      <Header {...props} dispatch = {dispatch} />
+      </>
+      )
+  }
+}
+export default withHook (Header);
