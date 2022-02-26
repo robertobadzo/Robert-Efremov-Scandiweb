@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { useParams } from 'react-router-dom'
 
- class PDP extends Component {
+class PDP extends Component {
   render() {
     return (
-    <div>{this.props.params.id}</div>
+      <div>{this.props.params.id}</div>
     )
   }
 }
@@ -12,10 +12,9 @@ import { useParams } from 'react-router-dom'
 const withHook = (PDP) => {
   return function WrappedComponent(props) {
     const params = useParams();
-
     return (
       <>
-        <PDP {...props} params={params}/>
+        <PDP {...props} params={params} />
       </>
     )
   }

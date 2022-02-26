@@ -50,6 +50,7 @@
     width: 26px;
     position: relative;
     top: 2.5px;
+    cursor: pointer;
 }
 
 .header-arrow {
@@ -59,9 +60,24 @@
     padding-right: 21px;
     font-family: 'Raleway', sans-serif;
     font-size: 21px;
+    weight: 400;
     color: #1D1F22;
 }
 
 .header-navlink {
     text-decoration: none;
+}
+.actv {
+    background: green;
+}
+.header-minicart {
+    position: absolute;
+    top: 106px;
+    display: none;
+    background: red;
+    width: 433px;
+    height: 720px;
+}
+.header-minicart.visible {
+    display: block;
 }

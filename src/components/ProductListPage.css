@@ -2,3 +2,47 @@
     text-decoration: none;
     color: black;
 }
+.pictures {
+    width: 477px;
+    height: 450px;
+    object-fit: cover;
+    margin: 16px auto;
+    display: block;
+}
+.product-card {
+    display: block;
+    background: #FFFFFF;
+    width: 512px;
+    height: 592px;
+   
+}
+.product-card-father {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 52px;
+    row-gap: 117px;
+}
+.price {
+    font-size: 24px; 
+    font-weight: 500;
+}
+.item-name {
+    margin-top: 30px;
+    font-size: 24px; 
+    font-weight: 300;
+    margin-left: 17.5px;
+    
+}
+.item-price {
+    display: flex;
+    flex-direction: row;
+    margin-left: 17.5px;
+}
+.category-title {
+    font-size: 56px;
+    font-weight: 400;
+    margin-top: 107px;
+    margin-bottom: 138px;
+    text-transform: capitalize;
+}
