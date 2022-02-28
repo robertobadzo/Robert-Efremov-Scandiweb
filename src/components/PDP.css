@@ -1,0 +1,45 @@
+.pdp-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pdp-gallery {
+    width: 105px;
+    height: 681px;
+    margin-top: 105px;
+    overflow: scroll;
+    overflow-x: hidden;
+    
+}
+
+/* HIDE SCROLLBAR */
+.pdp-gallery::-webkit-scrollbar {
+    display: none;
+}
+.pdpgallery {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
+/* HIDE SCROLLBAR END */
+
+.pdp-picture {
+    width: 813px;
+    height: 681px;
+    margin-top: 105px;
+    margin-right: 133px;
+    margin-left: 53px;
+    object-fit: cover;
+}
+.pdp-details {
+    width: 390px;
+    height: 681px;
+    background: blue;
+    margin-top: 105px;
+}
+.gallery-image{
+    width: 105px;
+    height: 105px;
+    margin-bottom: 53px;
+    object-fit: cover;
+    cursor: pointer;
+}
