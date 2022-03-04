@@ -52,14 +52,14 @@ export class Header extends Component {
                   {/*RIGHT SECTION */}
                   <div className='header-right'>
                     <div className='header-price'> <h1 className='header-currency'>{data.currencies[chosenCurrency].symbol}</h1>
-                      <img className="header-arrow" src={arrow} onClick={() => toggleCurrencyWindow}></img>
+                      <img className="header-arrow" src={arrow} onClick={toggleCurrencyWindow}></img>
                     </div>
-                    <div onClick={() => toggleCurrencyWindow}>
+                    <div onClick={toggleMiniCart}>
                       <img className="header-cart" src={cart}></img>
                     </div>
                     {/*RIGHT SECTION-CURRENCY-POPUP */}
                     <div id='currency-popup' className='currency-popup'>{data.currencies.map((item)=>
-                    <div onClick={() => toggleCurrencyWindow}><div key={item.label} className='choose-currency' onClick={() => this.props.dispatch({ type: "bb" + data.currencies.indexOf(item)})}>{item.symbol + " " + item.label}</div></div>)}
+                    <div onClick={toggleCurrencyWindow}><div key={item.label} className='choose-currency' onClick={() => this.props.dispatch({ type: "bb" + data.currencies.indexOf(item)})}>{item.symbol + " " + item.label}</div></div>)}
                     </div>
                     {/*RIGHT SECTION-MINI-CART */}
                     <MiniCart items={0} value={100} />
