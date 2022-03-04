@@ -16,6 +16,13 @@
     height: 592px;
    
 }
+.product-card:hover {
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+
+
+
+   
+}
 .product-card-father {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

@@ -11,21 +11,17 @@ constructor(props) {
     aImage: ""
   }
 }
-  render() {
-
+render() {
     const id = this.props.params.id;
-    console.log(id)
+    
     return (
       <Query query={GET_ONE_PRODUCT} variables={{ id: id }}>
         {
           ({ data, loading, error }) => {
-            
-            
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error: {error}</div>
             const firstImg = data.product.gallery[0]
             if (this.state.aImage === "") return this.setState({aImage: this.state.aImage = firstImg})
-            console.log(firstImg)
             return (
               <div className='pdp-main'>
                 <div className='pdp-gallery'>

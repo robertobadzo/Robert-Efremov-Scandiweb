@@ -30,6 +30,7 @@ export const GET_PRODUCTS = gql`
       amount
       currency {
         symbol
+        label
       }
     }
   } 
@@ -134,8 +135,12 @@ export const GET_PRODUCTS = gql`
     }
     }
 `;
-export const GET_CATEGORIES = gql` {
+export const GET_CATEGORIES_CURRENCIES = gql` {
   categories {
     name
+  }
+  currencies {
+    symbol
+    label
   }
 }`;

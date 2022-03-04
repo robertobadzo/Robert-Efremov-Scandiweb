@@ -9,26 +9,19 @@ import "./ProductListPage.css"
 class ProductListPage extends Component {
 
   render() {
-
-
     return (
-
       <Query query={GET_PRODUCTS}>
         {
           ({ data, loading, error }) => {
-
-
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error: {error}</div>
-
             //We need to check url pathname which is the category name in order to display right products in PLP
             const checkLocation = () => {
               const location = window.location.pathname;
-              this.props.dispatch({ type: location.substring(1) })
+              this.props.dispatch({ type: "aa" + location.substring(1) })
             }
             //Check Location when component loads
-            checkLocation()
-
+            window.onload = checkLocation()
             //Run checkLocation when pathname changes
             window.onpopstate = checkLocation;
             //Turn object in array
@@ -37,6 +30,9 @@ class ProductListPage extends Component {
             const hook = this.props.hook;
             //Filters products which have the category which is currently active
             const filtered = arr.filter((el) => el.category === hook);
+            //Chosen currency
+            const chosenCurrency = this.props.hookCurrency;
+            
            //ADD OUT OF STOCK BEHAVIOR
            //ADD OUT OF STOCK BEHAVIOR
            //ADD OUT OF STOCK BEHAVIOR
@@ -57,8 +53,8 @@ class ProductListPage extends Component {
                       <img src={item.gallery[0]} className="pictures"></img>
                       <h1 className='item-name'>{item.name}</h1>
                       <div className='item-price'>
-                      <h1 className='price'>{item.prices[0].currency.symbol}</h1>
-                      <h1 className='price'>{item.prices[0].amount}</h1>
+                      <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
+                      <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
                       </div>
                     </NavLink>
                   </div>)}
@@ -76,8 +72,8 @@ class ProductListPage extends Component {
                       <img src={item.gallery[0]} className="pictures"></img>
                       <h1 className='item-name'>{item.name}</h1>
                       <div className='item-price'>
-                      <h1 className='price'>{item.prices[0].currency.symbol}</h1>
-                      <h1 className='price'>{item.prices[0].amount}</h1>
+                      <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
+                      <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
                       </div>
                     </NavLink>
                   </div>)}
@@ -92,13 +88,14 @@ class ProductListPage extends Component {
   }
 }
 //Higher order component
-const withHook = (ProductListPage) => {
+  export const withHook = (ProductListPage) => {
   return function WrappedComponent(props) {
     const hook = useSelector(state => state.categoryReducer);
+    const hookCurrency = useSelector(state => state.currencyReducer);
     const dispatch = useDispatch();
     return (
       <>
-        <ProductListPage {...props} hook={hook} dispatch={dispatch} />
+        <ProductListPage {...props} hook={hook} dispatch={dispatch} hookCurrency={hookCurrency}/>
       </>
     )
   }

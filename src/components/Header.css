@@ -54,30 +54,50 @@
 }
 
 .header-arrow {
-    margin-left: 10px;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
 }
 .header-category {
-    padding-right: 21px;
+    height: 64px;
+    padding: 21px;
     font-family: 'Raleway', sans-serif;
     font-size: 21px;
-    weight: 400;
+   
     color: #1D1F22;
+    display: flex;
+    jusify-content: center;
+    align-items: center;
+    font-weight: 400;
+    
+}
+.header-category.active {
+    color: #5ECE7B;
+    border-bottom: 2px solid #5ECE7B;
+    font-weight: 600;
 }
 
 .header-navlink {
     text-decoration: none;
 }
-.actv {
-    background: green;
-}
-.header-minicart {
+.currency-popup {
+    display: none;
     position: absolute;
     top: 106px;
-    display: none;
-    background: red;
-    width: 433px;
-    height: 720px;
+    right: -32px;
+    width: 152px;
+    height: auto;
+    background: white;
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    
 }
-.header-minicart.visible {
+.currency-popup.visible {
     display: block;
+}
+.choose-currency {
+    margin:  27px 0px 27px 27px ;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 24px;
 }
