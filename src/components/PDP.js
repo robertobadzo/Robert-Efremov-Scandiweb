@@ -21,12 +21,11 @@ render() {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error: {error}</div>
             const firstImg = data.product.gallery[0]
-            if (this.state.aImage === "") return this.setState({aImage: this.state.aImage = firstImg})
             return (
               <div className='pdp-main'>
                 <div className='pdp-gallery'>
                   {data.product.gallery.map((item) => 
-                  <img src={item} className='gallery-image' onClick={() => this.setState({ aImage: this.state.aImage = item })}></img>)}
+                  <img src={item} className='gallery-image' onLoad={() => this.setState({aImage: this.state.aImage = firstImg})} onClick={() => this.setState({ aImage: this.state.aImage = item })}></img>)}
                   </div>
                 <img className='pdp-picture' src={ this.state.aImage}></img>
                 <div className='pdp-details'></div>

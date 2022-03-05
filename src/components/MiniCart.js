@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from "react-router-dom"
 import "./MiniCart.css"
 
 export default class MiniCart extends Component {
@@ -14,7 +15,7 @@ export default class MiniCart extends Component {
                 <div className='mc-buttons'>
                     <h1 className='mc-total'>Total</h1>
                     <h1 className='mc-value'>${this.props.value}</h1>
-                    <div className='view-bag'>VIEW BAG</div>
+                   <NavLink to="/cart" className='remove-styling view-bag'> <div>VIEW BAG</div> </NavLink>
                     <div className='mc-checkout'>CHECKOUT</div>
                 </div>
             </div>

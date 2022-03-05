@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
-import { categoryReducer }  from "./reducers"
-import { currencyReducer }  from "./reducers"
+import { currencyReducer, cartReducer, categoryReducer}  from "./reducers"
 
 export const allReducers = combineReducers (
     {
         categoryReducer,
-        currencyReducer
+        currencyReducer, 
+        cartReducer
         
     }
     )

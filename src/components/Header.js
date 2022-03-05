@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink, Link } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { Query } from 'react-apollo'
 import { GET_CATEGORIES_CURRENCIES } from '../api'
@@ -9,8 +9,23 @@ import logo from "../util/a-logo.svg"
 import cart from "../util/cart.svg"
 import arrow from "../util/dropdown-arrow.svg"
 
+
 export class Header extends Component {
   render() {
+     const checkLocation = async () => {
+      const location = window.location.pathname.substring(1);
+      const categ = document.getElementById(location)
+      categ.classList.add("activeCat")
+      console.log(location)
+    }
+     const updateLocation = async () => {
+      const location = window.location.pathname.substring(1);
+      const categ = document.getElementById(location)
+      categ.classList.remove("activeCat")
+    }
+    //window.onload = checkLocation();
+    //window.addEventListener("popstate", updateLocation)
+
     const toggleCurrencyWindow = () => {
       const currencyWindow = document.getElementById("currency-popup")
       if (currencyWindow.classList.contains("visible")) {
@@ -34,14 +49,15 @@ export class Header extends Component {
             ({ data, loading, error }) => {
 
               if (loading) return <div>Loading...</div>
+              
               if (error) return <div>Error: {error}</div>
               return (
                 <>
 
                   {/*LEFT SECTION */}
                   <div className='header-left'>
-                    {data.categories.map(item => <NavLink className="remove-styling"
-                      onClick={() => this.props.dispatch({ type: "aa" + item.name })} to={item.name} key={item.name} a><div className="header-category" key={item.name} >{item.name.toUpperCase()}</div></NavLink>)}
+                    {data.categories.map(item => <NavLink  className={({ isActive }) => (isActive ? 'active remove-styling header-category' : 'inactive remove-styling header-category')}
+                      onClick={ () => { console.log(item.name); this.props.dispatch({ type: "aa" + item.name })}} to={item.name} key={item.name}>{item.name.toUpperCase()}</NavLink>)}
                   </div>
 
                   {/*MIDDLE SECTION */}
@@ -56,6 +72,7 @@ export class Header extends Component {
                     </div>
                     <div onClick={toggleMiniCart}>
                       <img className="header-cart" src={cart}></img>
+                      <div className='number-of-items'>{this.props.hookNumberOfItems}</div>
                     </div>
                     {/*RIGHT SECTION-CURRENCY-POPUP */}
                     <div id='currency-popup' className='currency-popup'>{data.currencies.map((item)=>
@@ -80,10 +97,12 @@ const withHook = (Header) => {
   return function WrappedComponent(props) {
     const dispatch = useDispatch();
     const hookCurrency = useSelector(state => state.currencyReducer);
+    const hookNumberOfItems = useSelector(state => state.cartReducer.length);
     const hook = useSelector(state => state.categoryReducer);
+    const params = useParams();
     return (
       <>
-        <Header {...props} dispatch={dispatch} hook = {hook} hookCurrency={hookCurrency} />
+        <Header {...props} dispatch={dispatch} hook = {hook} hookCurrency={hookCurrency} hookNumberOfItems={hookNumberOfItems} params = {params}/>
       </>
     )
   }

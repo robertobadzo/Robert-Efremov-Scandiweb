@@ -53,3 +53,24 @@
     margin-bottom: 138px;
     text-transform: capitalize;
 }
+.plp-addtocart {
+    width: 69px;
+    height: 69px;
+    background: #5ECE7B;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 410px;
+    bottom: 120px;
+    display: none;
+    cursor: pointer;
+}
+.plp-cartlogo {
+    filter: brightness(1000%);
+    height: 28px;
+}
+.plp-addtocart.visible {
+    display: flex;
+}
