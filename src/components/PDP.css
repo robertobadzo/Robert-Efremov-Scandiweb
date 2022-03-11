@@ -16,7 +16,7 @@
 .pdp-gallery::-webkit-scrollbar {
     display: none;
 }
-.pdpgallery {
+.pdp-gallery {
     -ms-overflow-style: none;  
     scrollbar-width: none;  
   }

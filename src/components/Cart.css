@@ -2,10 +2,29 @@
     font-size: 43px;
     font-weight: 700;
     margin-top: 107px;
+    margin-bottom: 79px;
 }
 .cart-content {
     width: 1462px;
     height: 1000px;
     border: solid #E5E5E5 2px;
     margin-top: 80px;
+}
+.full-cart-card{
+    padding-top: 27px;
+    padding-bottom: 27px;
+    border-top: solid #E5E5E5 2px;
+    height: 183px;
+    width: 1462px;
+    margin-right: 0px;
+     
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "mc-cart-card-name mc-cart-card-image-numberof"
+      "mc-cart-card-price mc-cart-card-image-numberof"
+      "mc-cart-card-attributes mc-cart-card-image-numberof";
 }

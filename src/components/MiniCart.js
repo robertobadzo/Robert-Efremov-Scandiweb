@@ -1,26 +1,93 @@
 import React, { Component } from 'react'
-import { NavLink } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
+import { Query } from 'react-apollo'
+import { GET_CATEGORIES_CURRENCIES, GET_ONE_PRODUCT } from '../api'
+import { useQueries, useQuery } from "react-query"
+import { defaultDataIdFromObject, gql } from '@apollo/client';
+
+
 import "./MiniCart.css"
 
-export default class MiniCart extends Component {
-    render() {
-        return (
-            <>
-            <div className='header-minicart' id='minicart'>
-                <div className='mc-title'>My Bag, {this.props.items} items</div>
-                <div className='mc-products'>
-                    <div className='mc-card'></div>
-                    <div className='mc-card'></div>
-                </div>
-                <div className='mc-buttons'>
-                    <h1 className='mc-total'>Total</h1>
-                    <h1 className='mc-value'>${this.props.value}</h1>
-                   <NavLink to="/cart" className='remove-styling view-bag'> <div>VIEW BAG</div> </NavLink>
-                    <div className='mc-checkout'>CHECKOUT</div>
-                </div>
-            </div>
+
+class MiniCart extends Component {
+
+  render() {
+
+    const uniqueIds = [...new Set(this.props.hookCart)]
+    console.log(uniqueIds)
+    return (
+
+
+
+      <>
+        <div className='header-minicart' id='minicart'>
+          <div className='mc-title'><h1 className='mc-title-bold'>My Bag, </h1>{uniqueIds.length} items</div>
           
-            </>
-        )
-    }
+          <div className='mc-products'>{uniqueIds.map((item) => (
+              <div key={item} className='mc-card'>
+                <Query className = "mc-card-father" key={item} query={GET_ONE_PRODUCT} variables={{ id: item }}>
+                  {
+                    ({ data, loading, error }) => {
+                      if (loading) return <div>Loading...</div>
+                      if (error) return <div>Error: {error}</div>
+                      return (
+                        <>
+                        <h1 className='mc-cart-card-name'>{data.product.name} </h1>
+                        <h1 className='mc-cart-card-price'>{data.product.prices[this.props.hookCurrency].currency.symbol}{data.product.prices[this.props.hookCurrency].amount}</h1>
+                        <div className='mc-cart-card-attributes'>{data.product.attributes.map((item) => item.items.value)}</div>
+                        <div className='mc-cart-card-image-numberof'>
+                           <div className='mc-cart-card-image-num'>
+                            <div className='mc-cart-increment'>+</div>
+                            <div className='mc-cart-counter'>0</div>
+                            <div className='mc-cart-decrement'>-</div>
+                            </div>
+                            <img src={data.product.gallery[0]} className="mc-cart-image"></img>
+                        </div>
+                        </>
+                      )
+
+                    }
+                  }
+                </Query>
+              </div>
+    ))
+
+
+
+            }
+
+          </div>
+          <div className='mc-buttons'>
+            <h1 className='mc-total'>Total</h1>
+            <h1 className='mc-value'>${this.props.value}</h1>
+            <NavLink to="/cart" className='remove-styling view-bag'> <div>VIEW BAG</div> </NavLink>
+            <div className='mc-checkout'>CHECKOUT</div>
+          </div>
+        </div>
+
+
+      </>
+    )
+
+  }
 }
+
+
+
+
+const withHook = (MiniCart) => {
+  return function WrappedComponent(props) {
+    const hookCurrency = useSelector(state => state.currencyReducer);
+    const hookCart = useSelector(state => state.cartReducer);
+    const hook = useSelector(state => state.categoryReducer);
+    const params = useParams();
+
+    return (
+      <>
+        <MiniCart {...props} hook={hook} hookCurrency={hookCurrency} hookCart={hookCart} params={params} />
+      </>
+    )
+  }
+}
+export default withHook(MiniCart);

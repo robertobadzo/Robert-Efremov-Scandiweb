@@ -12,19 +12,6 @@ import arrow from "../util/dropdown-arrow.svg"
 
 export class Header extends Component {
   render() {
-     const checkLocation = async () => {
-      const location = window.location.pathname.substring(1);
-      const categ = document.getElementById(location)
-      categ.classList.add("activeCat")
-      console.log(location)
-    }
-     const updateLocation = async () => {
-      const location = window.location.pathname.substring(1);
-      const categ = document.getElementById(location)
-      categ.classList.remove("activeCat")
-    }
-    //window.onload = checkLocation();
-    //window.addEventListener("popstate", updateLocation)
 
     const toggleCurrencyWindow = () => {
       const currencyWindow = document.getElementById("currency-popup")
@@ -47,17 +34,14 @@ export class Header extends Component {
         <Query query={GET_CATEGORIES_CURRENCIES}>
           {
             ({ data, loading, error }) => {
-
               if (loading) return <div>Loading...</div>
-              
               if (error) return <div>Error: {error}</div>
               return (
                 <>
-
                   {/*LEFT SECTION */}
                   <div className='header-left'>
-                    {data.categories.map(item => <NavLink  className={({ isActive }) => (isActive ? 'active remove-styling header-category' : 'inactive remove-styling header-category')}
-                      onClick={ () => { console.log(item.name); this.props.dispatch({ type: "aa" + item.name })}} to={item.name} key={item.name}>{item.name.toUpperCase()}</NavLink>)}
+                    {data.categories.map(item => <NavLink to={item.name} className={({ isActive }) => (isActive ? 'active remove-styling header-category' : 'inactive remove-styling header-category')}
+                      onClick={ () => { console.log(item.name); this.props.dispatch({ type: "aa" + item.name })}} key={item.name}>{item.name.toUpperCase()}</NavLink>)}
                   </div>
 
                   {/*MIDDLE SECTION */}
@@ -70,13 +54,17 @@ export class Header extends Component {
                     <div className='header-price'> <h1 className='header-currency'>{data.currencies[chosenCurrency].symbol}</h1>
                       <img className="header-arrow" src={arrow} onClick={toggleCurrencyWindow}></img>
                     </div>
+
+                    <div>
                     <div onClick={toggleMiniCart}>
                       <img className="header-cart" src={cart}></img>
                       <div className='number-of-items'>{this.props.hookNumberOfItems}</div>
                     </div>
+                    </div>
+                    
                     {/*RIGHT SECTION-CURRENCY-POPUP */}
                     <div id='currency-popup' className='currency-popup'>{data.currencies.map((item)=>
-                    <div onClick={toggleCurrencyWindow}><div key={item.label} className='choose-currency' onClick={() => this.props.dispatch({ type: "bb" + data.currencies.indexOf(item)})}>{item.symbol + " " + item.label}</div></div>)}
+                    <div key={item.label} onClick={toggleCurrencyWindow}><div  className='choose-currency' onClick={() => this.props.dispatch({ type: "bb" + data.currencies.indexOf(item)})}>{item.symbol + " " + item.label}</div></div>)}
                     </div>
                     {/*RIGHT SECTION-MINI-CART */}
                     <MiniCart items={0} value={100} />
@@ -97,7 +85,7 @@ const withHook = (Header) => {
   return function WrappedComponent(props) {
     const dispatch = useDispatch();
     const hookCurrency = useSelector(state => state.currencyReducer);
-    const hookNumberOfItems = useSelector(state => state.cartReducer.length);
+    const hookNumberOfItems = useSelector(state => [...new Set(state.cartReducer)].length);
     const hook = useSelector(state => state.categoryReducer);
     const params = useParams();
     return (

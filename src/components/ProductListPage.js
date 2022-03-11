@@ -17,12 +17,12 @@ class ProductListPage extends Component {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error: {error}</div>
             //We need to check url pathname which is the category name in order to display right products in PLP
-            const checkLocation = () => {
+            const checkLocation = async () => {
               const location = window.location.pathname;
               this.props.dispatch({ type: "aa" + location.substring(1) })
             }
             //Check Location when component loads
-            window.onload = checkLocation;
+            window.onload = checkLocation();
             //Run checkLocation when pathname changes
             window.onpopstate = checkLocation;
             //Turn object in array
@@ -33,7 +33,9 @@ class ProductListPage extends Component {
             const filtered = arr.filter((el) => el.category === hook);
             //Chosen currency
             const chosenCurrency = this.props.hookCurrency;
-
+       
+       
+          
         
             
            //ADD OUT OF STOCK BEHAVIOR
@@ -51,14 +53,14 @@ class ProductListPage extends Component {
                 {arr.map(item =>
                   <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
                     <NavLink className="remove-styling " to={`/description/${item.id}`}>
-                      <img src={item.gallery[0]} className="pictures"></img>
+                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img>
                       <h1 className='item-name'>{item.name}</h1>
                       <div className='item-price'>
                       <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
                       <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
                       </div>
                     </NavLink>
-                    <div className='plp-addtocart' id={item.id} onClick={() => this.props.dispatch({ type: "cc", load: item.id })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
+                    <div className='plp-addtocart' id={item.id} data-stock={item.inStock} onClick={() => this.props.dispatch({ type: "cc", load: item.id })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
                   </div>)}
               </div>
               </>
@@ -71,14 +73,14 @@ class ProductListPage extends Component {
                 {filtered.map(item =>
                   <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
                     <NavLink className="remove-styling " to={`/description/${item.id}`}>
-                      <img src={item.gallery[0]} className="pictures"></img>
+                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay'></div>
                       <h1 className='item-name'>{item.name}</h1>
                       <div className='item-price'>
                       <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
                       <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
                       </div>
                     </NavLink>
-                    <div className='plp-addtocart' id={item.id} onClick={() => this.props.dispatch({ type: "cc", load: item.id })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
+                    <div className='plp-addtocart' id={item.id} data-stock={item.inStock} onClick={() => this.props.dispatch({ type: "cc", load: item.id })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
                   </div>)}
               </div>
               </>

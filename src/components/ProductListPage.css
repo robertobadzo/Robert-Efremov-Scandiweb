@@ -1,6 +1,8 @@
 .remove-styling {
     text-decoration: none;
-    color: black;
+    color: black
+    ;
+    
 }
 .pictures {
     width: 477px;
@@ -73,4 +75,18 @@
 }
 .plp-addtocart.visible {
     display: flex;
+}
+.plp-addtocart:hover {
+    filter: brightness(110%);
+}
+.plp-addtocart:active {
+    filter: brightness(120%);
+}
+div[data-stock="false"] {
+    display: none !important;
+   
+}
+img[data-stock="false"] {
+    opacity: 50%;
+   
 }
