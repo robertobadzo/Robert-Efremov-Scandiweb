@@ -79,14 +79,29 @@
 .plp-addtocart:hover {
     filter: brightness(110%);
 }
-.plp-addtocart:active {
-    filter: brightness(120%);
-}
-div[data-stock="false"] {
+ 
+.plp-addtocart[data-stock="false"] {
     display: none !important;
    
 }
-img[data-stock="false"] {
-    opacity: 50%;
+.out-of-stock-overlay[data-stock="false"]  {
+  position: relative;
+  top: -250px;
+  left: 140px;
+   color: #8D8F9A;
+   font-size: 32px;
+   font-weight: 400;
+  background: transparent;
+  
    
 }
+
+img[data-stock="false"] {
+    display: block;
+    opacity: 50%;
+}
+.out-of-stock-overlay[data-stock="true"] {
+display: none;
+   
+}
+

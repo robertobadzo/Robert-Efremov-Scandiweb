@@ -35,7 +35,12 @@ class MiniCart extends Component {
                         <>
                         <h1 className='mc-cart-card-name'>{data.product.name} </h1>
                         <h1 className='mc-cart-card-price'>{data.product.prices[this.props.hookCurrency].currency.symbol}{data.product.prices[this.props.hookCurrency].amount}</h1>
-                        <div className='mc-cart-card-attributes'>{data.product.attributes.map((item) => item.items.value)}</div>
+                        <div className='mc-cart-card-attributes'>
+                          <div className='pdp-attributes'>
+                            {data.product.attributes.map((item) => 
+                            <div className='mc-item-name'>{item.name}:<div className='mc-buttons-set-choose-attribute'>{item.items.map((el) => 
+                            <div className='mc-button-choose-attribute' /*ON CLICK FUNCTION*/ onClick={() => this.props.dispatch({ type: "cc", load: {value: el.value } })} data-type={item.type} data-value={el.value} style={{background: el.value}}>{el.value}</div>)}</div></div>)}</div>
+                            </div>
                         <div className='mc-cart-card-image-numberof'>
                            <div className='mc-cart-card-image-num'>
                             <div className='mc-cart-increment'>+</div>
@@ -82,10 +87,11 @@ const withHook = (MiniCart) => {
     const hookCart = useSelector(state => state.cartReducer);
     const hook = useSelector(state => state.categoryReducer);
     const params = useParams();
+    const dispatch = useDispatch();
 
     return (
       <>
-        <MiniCart {...props} hook={hook} hookCurrency={hookCurrency} hookCart={hookCart} params={params} />
+        <MiniCart {...props} hook={hook} dispatch={dispatch} hookCurrency={hookCurrency} hookCart={hookCart} params={params} />
       </>
     )
   }

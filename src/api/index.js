@@ -7,6 +7,7 @@ export const GET_ONE_PRODUCT = gql`query product($id: String!){
     inStock
     gallery
     category
+    description
     attributes {
       name
       id

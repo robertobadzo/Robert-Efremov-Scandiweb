@@ -34,16 +34,6 @@ class ProductListPage extends Component {
             //Chosen currency
             const chosenCurrency = this.props.hookCurrency;
        
-       
-          
-        
-            
-           //ADD OUT OF STOCK BEHAVIOR
-           //ADD OUT OF STOCK BEHAVIOR
-           //ADD OUT OF STOCK BEHAVIOR
-           //ADD OUT OF STOCK BEHAVIOR
-           //ADD OUT OF STOCK BEHAVIOR
-         
           
             //Displays all products
             if (hook === "all") return (
@@ -53,7 +43,7 @@ class ProductListPage extends Component {
                 {arr.map(item =>
                   <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
                     <NavLink className="remove-styling " to={`/description/${item.id}`}>
-                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img>
+                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay' data-stock = {item.inStock}>OUT OF STOCK</div>
                       <h1 className='item-name'>{item.name}</h1>
                       <div className='item-price'>
                       <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
@@ -73,7 +63,7 @@ class ProductListPage extends Component {
                 {filtered.map(item =>
                   <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
                     <NavLink className="remove-styling " to={`/description/${item.id}`}>
-                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay'></div>
+                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay' data-stock = {item.inStock}>OUT OF STOCK</div>
                       <h1 className='item-name'>{item.name}</h1>
                       <div className='item-price'>
                       <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
@@ -85,7 +75,6 @@ class ProductListPage extends Component {
               </div>
               </>
             )
-
           }
         }
       </Query>
