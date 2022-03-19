@@ -33,46 +33,46 @@ class ProductListPage extends Component {
             const filtered = arr.filter((el) => el.category === hook);
             //Chosen currency
             const chosenCurrency = this.props.hookCurrency;
-       
-          
+
+
             //Displays all products
             if (hook === "all") return (
               <>
-              <h1 className='category-title'>All</h1>
-              <div className='product-card-father'>
-                {arr.map(item =>
-                  <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
-                    <NavLink className="remove-styling " to={`/description/${item.id}`}>
-                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay' data-stock = {item.inStock}>OUT OF STOCK</div>
-                      <h1 className='item-name'>{item.name}</h1>
-                      <div className='item-price'>
-                      <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
-                      <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
-                      </div>
-                    </NavLink>
-                    <div className='plp-addtocart' id={item.id} data-stock={item.inStock} onClick={() => this.props.dispatch({ type: "cc", load: item.id })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
-                  </div>)}
-              </div>
+                <h1 className='category-title'>All</h1>
+                <div className='product-card-father'>
+                  {arr.map(item =>
+                    <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
+                      <NavLink className="remove-styling " to={`/description/${item.id}`}>
+                        <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay' data-stock={item.inStock}>OUT OF STOCK</div>
+                        <h1 className='item-name'>{item.name}</h1>
+                        <div className='item-price'>
+                          <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
+                          <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
+                        </div>
+                      </NavLink>
+                      <div className='plp-addtocart' id={item.id} data-stock={item.inStock} /*ON CLICK FUNCTION*/ onClick={() => this.props.dispatch({ type: "cc", load: { id: item.id, counter: 1, attributes: [] } })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
+                    </div>)}
+                </div>
               </>
             )
             //Displays filtered products by category
             return (
               <>
-              <h1 className='category-title'>{filtered[0].category}</h1>
-              <div className='product-card-father'>
-                {filtered.map(item =>
-                  <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
-                    <NavLink className="remove-styling " to={`/description/${item.id}`}>
-                      <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay' data-stock = {item.inStock}>OUT OF STOCK</div>
-                      <h1 className='item-name'>{item.name}</h1>
-                      <div className='item-price'>
-                      <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
-                      <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
-                      </div>
-                    </NavLink>
-                    <div className='plp-addtocart' id={item.id} data-stock={item.inStock} onClick={() => this.props.dispatch({ type: "cc", load: item.id })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
-                  </div>)}
-              </div>
+                <h1 className='category-title'>{filtered[0].category}</h1>
+                <div className='product-card-father'>
+                  {filtered.map(item =>
+                    <div key={item.id} className="product-card" onMouseEnter={() => document.getElementById(item.id).classList.add("visible")} onMouseLeave={() => document.getElementById(item.id).classList.remove("visible")}>
+                      <NavLink className="remove-styling " to={`/description/${item.id}`}>
+                        <img src={item.gallery[0]} className="pictures" data-stock={item.inStock}></img><div className='out-of-stock-overlay' data-stock={item.inStock}>OUT OF STOCK</div>
+                        <h1 className='item-name'>{item.name}</h1>
+                        <div className='item-price'>
+                          <h1 className='price'>{item.prices[chosenCurrency].currency.symbol}</h1>
+                          <h1 className='price'>{item.prices[chosenCurrency].amount}</h1>
+                        </div>
+                      </NavLink>
+                      <div className='plp-addtocart' id={item.id} data-stock={item.inStock} onClick={() => this.props.dispatch({ type: "cc", load: { id: item.id, counter: 1, attributes: [] } })}><img src={cartLogo} className="plp-cartlogo" ></img></div>
+                    </div>)}
+                </div>
               </>
             )
           }
@@ -82,14 +82,14 @@ class ProductListPage extends Component {
   }
 }
 //Higher order component
-  export const withHook = (ProductListPage) => {
+export const withHook = (ProductListPage) => {
   return function WrappedComponent(props) {
     const hook = useSelector(state => state.categoryReducer);
     const hookCurrency = useSelector(state => state.currencyReducer);
     const dispatch = useDispatch();
     return (
       <>
-        <ProductListPage {...props} hook={hook} dispatch={dispatch} hookCurrency={hookCurrency}/>
+        <ProductListPage {...props} hook={hook} dispatch={dispatch} hookCurrency={hookCurrency} />
       </>
     )
   }

@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 
 export const client = new ApolloClient({ uri: "http://localhost:4000/", cache: new InMemoryCache(), connectToDevTools: true });
 export const store = createStore(allReducers, compose( window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>

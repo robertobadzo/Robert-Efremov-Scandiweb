@@ -16,16 +16,16 @@ export class Header extends Component {
     const toggleCurrencyWindow = () => {
       const currencyWindow = document.getElementById("currency-popup")
       if (currencyWindow.classList.contains("visible")) {
-       return currencyWindow.classList.remove("visible");
-      } 
+        return currencyWindow.classList.remove("visible");
+      }
       else return currencyWindow.classList.add("visible")
     }
-    
+
     const toggleMiniCart = () => {
       const mcart = document.getElementById("minicart")
-      if (mcart.classList.contains("visible"))  {
-      return mcart.classList.remove("visible")
-      }  
+      if (mcart.classList.contains("visible")) {
+        return mcart.classList.remove("visible")
+      }
       else return mcart.classList.add("visible")
     }
     const chosenCurrency = this.props.hookCurrency;
@@ -41,7 +41,7 @@ export class Header extends Component {
                   {/*LEFT SECTION */}
                   <div className='header-left'>
                     {data.categories.map(item => <NavLink to={item.name} className={({ isActive }) => (isActive ? 'active remove-styling header-category' : 'inactive remove-styling header-category')}
-                      onClick={ () => { console.log(item.name); this.props.dispatch({ type: "aa" + item.name })}} key={item.name}>{item.name.toUpperCase()}</NavLink>)}
+                      onClick={() => { console.log(item.name); this.props.dispatch({ type: "aa" + item.name }) }} key={item.name}>{item.name.toUpperCase()}</NavLink>)}
                   </div>
 
                   {/*MIDDLE SECTION */}
@@ -56,15 +56,15 @@ export class Header extends Component {
                     </div>
 
                     <div>
-                    <div onClick={toggleMiniCart}>
-                      <img className="header-cart" src={cart}></img>
-                      <div className='number-of-items'>{this.props.hookNumberOfItems}</div>
+                      <div onClick={toggleMiniCart}>
+                        <img className="header-cart" src={cart}></img>
+                        <div className='number-of-items'>{this.props.hookNumberOfItems}</div>
+                      </div>
                     </div>
-                    </div>
-                    
+
                     {/*RIGHT SECTION-CURRENCY-POPUP */}
-                    <div id='currency-popup' className='currency-popup'>{data.currencies.map((item)=>
-                    <div key={item.label} onClick={toggleCurrencyWindow}><div  className='choose-currency' onClick={() => this.props.dispatch({ type: "bb" + data.currencies.indexOf(item)})}>{item.symbol + " " + item.label}</div></div>)}
+                    <div id='currency-popup' className='currency-popup'>{data.currencies.map((item) =>
+                      <div key={item.label} onClick={toggleCurrencyWindow}><div className='choose-currency' onClick={() => this.props.dispatch({ type: "bb" + data.currencies.indexOf(item) })}>{item.symbol + " " + item.label}</div></div>)}
                     </div>
                     {/*RIGHT SECTION-MINI-CART */}
                     <MiniCart items={0} value={100} />
@@ -90,7 +90,7 @@ const withHook = (Header) => {
     const params = useParams();
     return (
       <>
-        <Header {...props} dispatch={dispatch} hook = {hook} hookCurrency={hookCurrency} hookNumberOfItems={hookNumberOfItems} params = {params}/>
+        <Header {...props} dispatch={dispatch} hook={hook} hookCurrency={hookCurrency} hookNumberOfItems={hookNumberOfItems} params={params} />
       </>
     )
   }
