@@ -39,3 +39,8 @@
     flex-direction: column;
     align-items: center;
 }
+.pdp-arrow{
+    background: red;
+    width: 20px;
+    height: 20px;
+}

@@ -8,26 +8,12 @@ import MiniCart from "./MiniCart"
 import logo from "../util/a-logo.svg"
 import cart from "../util/cart.svg"
 import arrow from "../util/dropdown-arrow.svg"
-
+import toggleMiniCart from '../modules/toggle-minicart'
+import toggleCurrencyWindow from '../modules/toggle-currency-window'
 
 export class Header extends Component {
+  
   render() {
-
-    const toggleCurrencyWindow = () => {
-      const currencyWindow = document.getElementById("currency-popup")
-      if (currencyWindow.classList.contains("visible")) {
-        return currencyWindow.classList.remove("visible");
-      }
-      else return currencyWindow.classList.add("visible")
-    }
-
-    const toggleMiniCart = () => {
-      const mcart = document.getElementById("minicart")
-      if (mcart.classList.contains("visible")) {
-        return mcart.classList.remove("visible")
-      }
-      else return mcart.classList.add("visible")
-    }
     const chosenCurrency = this.props.hookCurrency;
     return (
       <div className='wrapper'>
@@ -51,14 +37,14 @@ export class Header extends Component {
 
                   {/*RIGHT SECTION */}
                   <div className='header-right'>
-                    <div className='header-price'> <h1 className='header-currency'>{data.currencies[chosenCurrency].symbol}</h1>
-                      <img className="header-arrow" src={arrow} onClick={toggleCurrencyWindow}></img>
+                    <div className='header-price' id='header-price' onClick={toggleCurrencyWindow}> <h1 className='header-currency'>{data.currencies[chosenCurrency].symbol}</h1>
+                      <img className="header-arrow" src={arrow} ></img>
                     </div>
 
                     <div>
                       <div onClick={toggleMiniCart}>
-                        <img className="header-cart" src={cart}></img>
-                        <div className='number-of-items'>{this.props.hookNumberOfItems}</div>
+                        <img className="header-cart" id='header-cart' src={cart}></img>
+                        <div className='number-of-items'>{this.props.hookCart[0].totalItems}</div>
                       </div>
                     </div>
 
@@ -86,11 +72,12 @@ const withHook = (Header) => {
     const dispatch = useDispatch();
     const hookCurrency = useSelector(state => state.currencyReducer);
     const hookNumberOfItems = useSelector(state => [...new Set(state.cartReducer)].length);
+    const hookCart = useSelector(state => state.cartReducer);
     const hook = useSelector(state => state.categoryReducer);
     const params = useParams();
     return (
       <>
-        <Header {...props} dispatch={dispatch} hook={hook} hookCurrency={hookCurrency} hookNumberOfItems={hookNumberOfItems} params={params} />
+        <Header {...props} hookCart = {hookCart} dispatch={dispatch} hook={hook} hookCurrency={hookCurrency} hookNumberOfItems={hookNumberOfItems} params={params} />
       </>
     )
   }

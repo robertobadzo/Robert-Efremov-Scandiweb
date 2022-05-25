@@ -4,6 +4,7 @@
     display: none;
     width: 433px;
     height: 720px;
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
 
 .header-minicart.visible {
@@ -30,6 +31,7 @@
     height: 460px;
     margin-bottom: 16px;
     overflow: scroll;
+    
      
 }
 
@@ -88,7 +90,7 @@
 
 .mc-cart-card-name {
     width: 181px;
-    height: 69px;
+    height: auto;
     font-size: 21px;
     font-weight: 300;
 }
@@ -121,11 +123,11 @@
 }
   
 .mc-cart-card-name {
-    line-height: 34px; grid-area: mc-cart-card-name; 
+    line-height: auto; grid-area: mc-cart-card-name; 
 }
   
 .mc-cart-card-price {
-    margin-bottom: 25px; font-size: 21px; font-weight: 500; grid-area: mc-cart-card-price;
+    margin-bottom: auto; font-size: 21px; font-weight: 500; grid-area: mc-cart-card-price;
 }
   
 .mc-cart-card-attributes {
@@ -157,8 +159,8 @@
     
 }
 .mc-button-choose-attribute {
-    min-width: 32px;
-    height: 32px;
+    min-width: 12px;
+    min-height: 12px;
     border: solid #1D1F22 1.5px;
     margin-right: 11px;
     display: flex;
@@ -169,14 +171,23 @@
     margin-top: 5px;
     user-select: none;
     cursor: pointer;
+    
+}
+.mc-button-choose-attribute[data-value] {
+    background: red;
+    
 }
  .mc-buttons-set-choose-attribute {
   display: flex;
    
  }
  .mc-item-name {
-     font-size: 18px;
+    font-size: 15px;
      font-weight: 500;
-     margin-bottom: 5px;
+     margin-bottom: auto;
+     margin-top: 3px;
  }
  
+ .mc-test{
+     background: red;
+ }
